@@ -19,18 +19,6 @@ include_once("conexion.php");
 	    mysqli_close($conecta);
 class PDF_MC_Table extends FPDF
 {
-function Footer(){
-        $this->SetFont('Arial','B',11);
-		$this->SetXY(88,240);
-		$this->Cell(40,5,'A T E N T A M E N T E',0,0,'C');
-		$this->SetXY(78,258);
-		$contralor=iconv('UTF-8', 'ISO-8859-1','Lic. Vanessa Yazmín Gómez Y Gómez');
-		$this->Cell(60,5,$contralor,'T',0,'C');
-		$this->SetXY(78,262);
-		$this->Cell(60,5,'Contralora del H. Ayuntamiento de Tuxpan',0,0,'C');
-		$this->SetXY(18,246);
-		//$this->Cell(25,4,utf8_decode($GLOBALS['copiauno']),0,0,'L');
-	    }
  function Header(){
      
          
@@ -55,6 +43,8 @@ function Footer(){
 }
 
 $pdf = new PDF_MC_Table();
+$pdf->SetMargins(15, 10, 15);
+$pdf->SetAutoPageBreak(true, 20);
 $pdf->AddPage();
 $pdf->AliasNbPages();
 $pdf->SetFont('Arial','B', 12);
@@ -82,18 +72,20 @@ $pdf->SetFont('Arial','', 12);
 $pdf->SetXY(59,74);
 $pdf->Cell(40,5,$GLOBALS['mail'],0,0,'L');
 $pdf->SetFont('Arial','B', 12);
-$pdf->SetXY(50,80);
+$pdf->SetXY(25,80);
 $pdf->Cell(10,5,'Denuncia:',0,0,'R');
 $pdf->SetFont('Arial','', 12);
-$pdf->SetXY(59, 80);
+$pdf->SetXY(35, 80);
 $denuncia =iconv('UTF-8', 'ISO-8859-1',$GLOBALS['denuncia']);
-$pdf->MultiCell(135,5,$denuncia, 0, 'J');
+$pdf->MultiCell(160,5,$denuncia, 0, 'J');
 
+$fechaY = $pdf->GetY() + 8;
+$pdf->SetY($fechaY);
 $pdf->SetFont('Arial','B', 12);
-$pdf->SetXY(50,170);
-$pdf->Cell(10,5,'Fecha de Registro:',0,0,'R');
+$pdf->SetX(25);
+$pdf->Cell(35,5,'Fecha de Registro:',0,0,'R');
 $pdf->SetFont('Arial','B', 10);
-$pdf->SetXY(60,170);
+$pdf->SetX(60);
 $pdf->Cell(100,5,$GLOBALS['fechor'],0,0,'L');
 
 
